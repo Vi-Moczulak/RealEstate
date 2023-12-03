@@ -45,7 +45,7 @@ exports.user_get_id = (req, res, next) => {
     User.find(filter)
         .then((result) => {
             res.status(200).json({
-                wiadomosc: 'User id ',
+                wiadomosc: 'User ' + email,
                 id: result[0]._id,
             });
         })
