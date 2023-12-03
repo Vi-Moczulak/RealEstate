@@ -36,3 +36,27 @@ exports.user_login = (req, res, next) => {
         });
     });
 }
+
+exports.user_get_id = (req, res, next) => {
+    let filter = {};
+    const email = req.params.userEmail;
+    filter['email'] = email;
+
+    User.find(filter)
+        .then((result) => {
+            res.status(200).json({
+                wiadomosc: 'User id ',
+                id: result[0]._id,
+            });
+        })
+        .catch((err) => res.status(500).json(err));
+};
+
+exports.user_delete = (req, res, next) => {
+    const id = req.params.userId;
+    User.findByIdAndDelete(id)
+        .then(() => {
+            res.status(200).json({ wiadomosc: 'User ' + id + ' deleted' });
+        })
+        .catch((err) => res.status(500).json(err));
+}
